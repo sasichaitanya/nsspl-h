@@ -37,9 +37,6 @@ function Employees({ userData, fectEmployes }) {
                             )
                         })
                     }
-
-
-
                 </tbody>
             </Table>
             <div>
