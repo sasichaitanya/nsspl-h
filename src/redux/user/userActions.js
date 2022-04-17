@@ -1,5 +1,8 @@
 import axios from "axios";
-import { FETCH_EMP_FAILURE, FETCH_EMP_SUCCESS, FETCH_EMP_REQUEST } from "./userTypes";
+import {
+    FETCH_EMP_FAILURE, FETCH_EMP_SUCCESS, FETCH_EMP_REQUEST, CHANGE_LOGINSTATUS,
+    UPDATE_EMP
+} from "./userTypes";
 
 export const fetchEmpRequest = () => {
     return {
@@ -21,19 +24,33 @@ export const fetchEmpFailure = (error) => {
     }
 }
 
+export const changeLoginStatus = (loginType) => {
+    return {
+        type: CHANGE_LOGINSTATUS,
+        payload: loginType
+    }
+}
+
+export const updateEmployee = (empDetails) => {
+    return {
+        type: UPDATE_EMP,
+        payload: empDetails
+    }
+}
+
 
 export const fectEmployes = () => {
     return (dispatch) => {
         // enables loader
         dispatch(fetchEmpRequest)
         axios.get('https://api.github.com/users')
-        .then(response => {
-            const users = response.data
-            dispatch(fetchEmpSuccess(users))
-        })
-        .catch(err => {
-            const errMsg = err.message
-            dispatch(fetchEmpFailure(errMsg))
-        })
+            .then(response => {
+                const users = response.data
+                dispatch(fetchEmpSuccess(users))
+            })
+            .catch(err => {
+                const errMsg = err.message
+                dispatch(fetchEmpFailure(errMsg))
+            })
     }
 }

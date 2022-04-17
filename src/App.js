@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Employees from './components/Employees';
 import Header from './components/Header';
 import Login from './components/Login';
+import EmployeeDetails from './components/EmployeeDetails';
 import { Routes, Route } from 'react-router';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/employees" element={<Employees />} />
+        <Route path="/employedetails" element={<EmployeeDetails />} />
       </Routes>
     </Provider>
 

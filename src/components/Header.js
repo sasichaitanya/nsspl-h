@@ -1,7 +1,13 @@
 import { Navbar, Container, Nav, Form } from "react-bootstrap"
 import { NavLink } from "react-router-dom";
+import { connect } from 'react-redux'
+import { changeLoginStatus } from '../redux';
 
-const Header = () => {
+const Header = (props) => {
+
+    const logoutClicked =() => {
+        props.changeLoginStatus(false)
+    }
     return (
         <Navbar bg="light" expand="lg">
             <Container fluid>
@@ -12,9 +18,14 @@ const Header = () => {
                         className="me-auto my-2 my-lg-0"
                         style={{ maxHeight: '100px' }}
                         navbarScroll>
-                        <Nav.Link as={NavLink} to="/home">Home</Nav.Link>
-                        <Nav.Link as={NavLink} to="/about">About</Nav.Link>
-                        <Nav.Link as={NavLink} to="/employees">Employees</Nav.Link>
+                        {props.userData.isLoggedIn &&
+                            <>
+                                <Nav.Link as={NavLink} to="/home">Home</Nav.Link>
+                                <Nav.Link as={NavLink} to="/about">About</Nav.Link>
+                                <Nav.Link as={NavLink} to="/employees">Employees</Nav.Link>
+                            </>
+                        }
+
 
                     </Nav>
                     <Form className="d-flex">
@@ -22,7 +33,11 @@ const Header = () => {
                             className="me-auto my-2 my-lg-0"
                             style={{ maxHeight: '100px' }}
                             navbarScroll>
-                            <Nav.Link as={NavLink} to="/">Logout</Nav.Link>
+                            {props.userData.isLoggedIn &&
+                                <Nav.Link as={NavLink} to="/" onClick={() => logoutClicked()}>Logout</Nav.Link>
+                            }
+
+
                         </Nav>
                     </Form>
                 </Navbar.Collapse>
@@ -31,5 +46,17 @@ const Header = () => {
     )
 }
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        userData: state.user
+    }
+}
 
-export default Header
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        changeLoginStatus: (e) => dispatch(changeLoginStatus(e))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

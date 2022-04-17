@@ -1,9 +1,14 @@
-import { FETCH_EMP_FAILURE, FETCH_EMP_REQUEST, FETCH_EMP_SUCCESS } from "./userTypes";
+import {
+    FETCH_EMP_FAILURE, FETCH_EMP_REQUEST, FETCH_EMP_SUCCESS, CHANGE_LOGINSTATUS,
+    UPDATE_EMP
+} from "./userTypes";
 
 const initailState = {
     loading: false,
     employees: [],
-    error: ''
+    error: '',
+    isLoggedIn: false,
+    selectedEmployee: {}
 }
 
 const userReducer = (state = initailState, action) => {
@@ -28,6 +33,18 @@ const userReducer = (state = initailState, action) => {
                 loading: false,
                 employees: [],
                 error: action.payload
+            }
+
+        case CHANGE_LOGINSTATUS:
+            return {
+                ...state,
+                isLoggedIn: action.payload
+            }
+
+        case UPDATE_EMP:
+            return {
+                ...state,
+                selectedEmployee: action.payload
             }
 
         default:
