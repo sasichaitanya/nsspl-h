@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import { fectEmployes } from '../redux';
-import { Table } from 'react-bootstrap';
+import { Table, Image } from 'react-bootstrap';
 
 function Employees({ userData, fectEmployes }) {
     useEffect(() => {
@@ -22,6 +22,7 @@ function Employees({ userData, fectEmployes }) {
                         <th>Id</th>
                         <th>Login</th>
                         <th>Node_id</th>
+                        <th>Avatar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@ function Employees({ userData, fectEmployes }) {
                                     <td>{user.id}</td>
                                     <td>{user.login}</td>
                                     <td>{user.node_id}</td>
+                                    <td><Image roundedCircle src={user.avatar_url}/></td>
                                 </tr>
                             )
                         })
